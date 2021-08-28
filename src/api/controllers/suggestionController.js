@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -31,3 +32,37 @@ suggestionController.use("/suggestions", SuggestionsRoute);
 
 // Starting server
 suggestionController.listen(3000, console.log("Listening on port 3000"));
+=======
+const suggestionModel = require("../models/suggestionModel")
+
+function getOneSuggestion(req,res){
+
+}
+
+function getAllSuggestions(req,res){
+    res.send("Hello User")
+}
+
+function createSuggestion(req,res){
+
+
+}
+
+function updateSuggestion(req,res){
+
+
+}
+
+function deleteSuggestion(req,res){
+
+
+}
+
+module.exports = {
+   getOneSuggestion,
+   getAllSuggestions,
+   createSuggestion,
+   updateSuggestion,
+   deleteSuggestion 
+}
+>>>>>>> File Structure
