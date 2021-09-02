@@ -42,3 +42,38 @@ async function createExercise(req,res){
    }    
 
 }
+async function updateExercise(req,res){
+    try{
+        const exercise=await Exercise.findById(req.params.id)
+        console.log(req.params)
+        exercise.sub=req.body.sub
+        
+        const ex=await exercise.save()
+        res.json(ex)
+    }catch(err){
+        res.send('Error' + err)
+    }
+
+}
+
+async function deleteExercise(req,res){
+    try{
+        const exercise=await Exercise.findById(req.params.id)
+        exercise.sub=req.body.sub
+        const ex=await exercise.remove()
+        res.json(ex)
+    }catch(err){
+       res.send('Error' + err)
+    }
+
+}
+
+module.exports = {
+   getOneExercise,
+   getAllExercises,
+   createExercise,
+   updateExercise,
+   deleteExercise 
+}
+
+
