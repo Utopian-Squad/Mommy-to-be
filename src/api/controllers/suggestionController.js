@@ -1,32 +1,33 @@
-const suggestionModel = require("../models/suggestionModel")
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-function getOneSuggestion(req,res){
+// Create express app
+const suggestionController = express();
 
-}
+// Database
+mongoose.connect('mongodb://localhost/motivation', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
 
-function getAllSuggestions(req,res){
-    res.send("Hello User")
-}
+const db = mongoose.connection;
 
-function createSuggestion(req,res){
+db.once('open', () => {
+	console.log("Connected to MongoDB database...");
+});
 
+// Middleware
+suggestionController.use(bodyParser.json());
 
-}
+// Routes
+suggestionController.get("/", (req, res) => {
+  res.send("Pregnancy Suggestions");
+});
 
-function updateSuggestion(req,res){
+const SuggestionsRoute = require('../routes/Suggestion');
 
+suggestionController.use("/suggestions", SuggestionsRoute);
 
-}
-
-function deleteSuggestion(req,res){
-
-
-}
-
-module.exports = {
-   getOneSuggestion,
-   getAllSuggestions,
-   createSuggestion,
-   updateSuggestion,
-   deleteSuggestion 
-}
+// Starting server
+suggestionController.listen(3000, console.log("Listening on port 3000"));
