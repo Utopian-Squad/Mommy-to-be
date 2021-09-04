@@ -1,0 +1,4 @@
+npm install
+npm install body-parser
+npm i express body-parser monngoose
+npm i -D nodemon
