@@ -6,7 +6,3 @@ MONGODB_URI = "mongodb://localhost:27017/api"
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true},
    ()=>{ console.log("Database Connected");}
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> File Structure
