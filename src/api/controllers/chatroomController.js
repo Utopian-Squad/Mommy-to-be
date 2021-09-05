@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Chatroom = mongoose.model("Chatroom");
+const Chatroom = require("../models/chatroomModel")
 
 exports.createChatroom = async (req, res) => {
   const { name } = req.body;

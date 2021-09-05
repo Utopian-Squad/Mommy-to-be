@@ -15,6 +15,7 @@ const foodRouter = require("./src/api/routes/foodRoute")
 const exerciseRouter = require("./src/api/routes/exerciseRouter")
 const suggestionRouter = require("./src/api/routes/suggestionRouter")
 const notificationRouter = require("./src/api/routes/notificationRouter");
+const chatRouter = require("./src/api/routes/chatroomRoute")
 
 const app = express()
 
@@ -27,13 +28,14 @@ if (process.env.NODE_ENV == "DEVELOPMENT") {
 
 
 app.use("/api/login",userRouter.router);
-app.use("/api/mom",momRouter.router);
-app.use("/api/nurse",nurseRouter.router);
+app.use("/api/user/mom",momRouter.router);
+app.use("/api/user/nurse",nurseRouter.router);
 app.use("/api/admin",adminRouter.router);
-app.use("/api/food",foodRouter.router);
-app.use("/api/exercise",exerciseRouter.router);
-app.use("/api/suggestion",suggestionRouter.router);
-app.use("/api/notification",notificationRouter.router);
+app.use("/api/user/food",foodRouter.router);
+app.use("/api/user/exercise",exerciseRouter.router);
+app.use("/api/user/suggestion",suggestionRouter.router);
+app.use("/api/user/notification",notificationRouter.router);
+app.use("/api/user/chatroom",chatRouter.router);
 
 
 app.listen("3000",(err)=>{

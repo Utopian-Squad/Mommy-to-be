@@ -9,7 +9,9 @@ router.get("/:id",suggestionController.getOneSuggestion);
 
 router.post("/",suggestionController.createSuggestion);
 
-router.put("/:id", suggestionController.updateSuggestion);
+router.patch("/:id", suggestionController.updateSuggestion);
+
+router.get("/random",suggestionController.randomSuggestion);
 
 router.delete("/:id",suggestionController.deleteSuggestion);
 

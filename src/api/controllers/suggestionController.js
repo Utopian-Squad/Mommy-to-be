@@ -1,34 +1,58 @@
+const Suggestion = require("../models/suggestionModel")
 
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 
-// Create express app
-const suggestionController = express();
+async function getAllSuggestions(req,res){
+	const suggestions = await Suggestion.find();
 
-// Database
-mongoose.connect('mongodb://localhost/motivation', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-});
+	res.json(suggestions);
 
-const db = mongoose.connection;
+}
 
-db.once('open', () => {
-	console.log("Connected to MongoDB database...");
-});
+async function getOneSuggestion(req,res){
+	const q = await Suggestion.findById({ _id: req.params.id });
 
-// Middleware
-suggestionController.use(bodyParser.json());
+	res.json(q);
 
-// Routes
-suggestionController.get("/", (req, res) => {
-  res.send("Pregnancy Suggestions");
-});
+}
 
-const SuggestionsRoute = require('../routes/Suggestion');
+async function createSuggestion(req,res){
+	const newSuggestion = new Suggestion(req.body);
+	
+	const savedSuggestion = await newSuggestion.save();
 
-suggestionController.use("/suggestions", SuggestionsRoute);
+	res.json(savedSuggestion);
 
-// Starting server
-suggestionController.listen(3000, console.log("Listening on port 3000"));
+}
+
+async function updateSuggestion(req,res){
+	const q = await Suggestion.updateOne({_id: req.params.id}, {$set: req.body});
+
+	res.json(q);
+
+}
+
+async function deleteSuggestion(req,res){
+
+	const result = await Suggestion.findByIdAndDelete({ _id: req.params.id });
+
+	res.json(result);
+}
+
+async function randomSuggestion(req,res){
+	const count = await Suggestion.countDocuments();
+	const random = Math.floor(Math.random() * count);
+	const q = await Suggestion.findOne().skip(random);
+
+	res.json(q);
+
+}
+
+module.exports = {
+
+	getAllSuggestions,
+	getOneSuggestion,
+	createSuggestion,
+	updateSuggestion,
+	randomSuggestion,
+	deleteSuggestion
+}
