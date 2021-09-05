@@ -1,18 +1,35 @@
-const express = require("express")
+const express = require("express");
+const { verifyUser } = require("../middlewares/authentication");
+const uploadImage = require("../controllers/uploadImage");
+const foodValidation = require("../middlewares/food_validation");
+const foodController = require("../controllers/foodController");
+
 const router = express.Router();
 
-const foodController = require("../controllers/foodController")
+router
+  .route("/")
+  .get(verifyUser, foodController.getAllFoods)
+  .post(
+    verifyUser,
+    uploadImage,
+    foodValidation.validate("CREATE"),
+    foodController.createFood
+  );
 
-router.get("/",foodController.getAllFoods);
-
-router.get("/:id",foodController.getOneFood);
-
-router.post("/",foodController.createFood);
-
-router.put("/:id", foodController.updateFood);
-
-router.delete("/:id",foodController.deleteFood);
+router
+  .route("/:id")
+  .get(verifyUser, foodValidation.validate("GET"), foodController.getOneFood)
+  .patch(
+    verifyUser,
+    foodValidation.validate("UPDATE"),
+    foodController.updateFood
+  )
+  .delete(
+    verifyUser,
+    foodValidation.validate("DELETE"),
+    foodController.deleteFood
+  );
 
 module.exports = {
-    router
-}
+  router,
+};

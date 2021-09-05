@@ -1,0 +1,79 @@
+[
+    {
+    "_id": "5d7a514b5d2c12c7449be110",
+    "roleName": "nurse",
+    "privileges": [
+      {
+        "title": "exercise",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "user",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "food",
+        "permissions": ["read","create", "update", "delete"]
+      },
+      {
+        "title": "suggestion",
+        "permissions": ["read"]
+      },
+      {
+        "title": "role",
+        "permissions": ["read"]
+      }
+    ]
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be100",
+    "roleName": "mom",
+    "privileges": [
+      {
+        "title": "exercise",
+        "permissions": ["read"]
+      },
+      {
+        "title": "user",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "food",
+        "permissions": ["read"]
+      },
+      {
+        "title": "suggestion",
+        "permissions": ["read"]
+      },
+      {
+        "title": "role",
+        "permissions": ["read"]
+      }
+    ]
+  },{
+    "_id": "5d7a514b5d2c12c7449be120",
+    "roleName": "admin",
+    "privileges": [
+      {
+        "title": "exercise",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "user",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "food",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "suggestion",
+        "permissions": ["read", "create", "update", "delete"]
+      },
+      {
+        "title": "role",
+        "permissions": ["read", "create", "update", "delete"]
+      }
+    ]
+  }
+]

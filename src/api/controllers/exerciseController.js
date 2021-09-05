@@ -1,79 +1,148 @@
-const Exercise = require("../models/exerciseModel")
+const { validationResult } = require("express-validator");
+const Exercise = require("../models/exerciseModel");
 
-async function getOneExercise(req,res){
-    try{
-        const exercise=await Exercise.findById(req.params.id)
-        if(exercise==null){
-           res.send('Error ' + err )
-       }else{
-           res.json(exercise)}
-   }catch(err){
-       res.send('Error ' + err )
-   }
-}
-
-async function getAllExercises(req,res){
-    
-    try{
-            const exercises=await Exercise.find()
-            res.json(exercises)
-    }catch(err){
-        res.send('Error ' + err )
-    }
-}
-
-async function createExercise(req,res){
-    const exercise=new Exercise({
-        id:req.body.id,        
-       name:req.body.name,
-       type:req.body.type,
-       duration:req.body.duration,
-      decription:req.body.description,
-
-   })
-
-   try{
-       const ex=await exercise.save()
-       res.json(ex)
-   }catch(err){
-       
-      res.send('Error' + err)
-       //throw new CustomError(err)
-   }    
-
-}
-async function updateExercise(req,res){
-    try{
-        const exercise=await Exercise.findById(req.params.id)
-        console.log(req.params)
-        exercise.sub=req.body.sub
-        
-        const ex=await exercise.save()
-        res.json(ex)
-    }catch(err){
-        res.send('Error' + err)
+async function getOneExercise(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
     }
 
+    const exercise = await Exercise.findById(req.params.id);
+    if (!exercise) {
+      return res.status(404).json({
+        status: "error",
+        message: "exercise with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      exercise,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-async function deleteExercise(req,res){
-    try{
-        const exercise=await Exercise.findById(req.params.id)
-        exercise.sub=req.body.sub
-        const ex=await exercise.remove()
-        res.json(ex)
-    }catch(err){
-       res.send('Error' + err)
+async function getAllExercises(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
     }
 
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+
+    const result = await Exercise.paginate(
+      {},
+      {
+        page,
+        limit,
+        sort: "-createdAt",
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function createExercise(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+    if (!req.file) {
+      req.file = { filename: `default.png` };
+    }
+
+    const exercise = await Exercise.create({
+      ...req.body,
+      image: req.file.filename,
+    });
+    res.status(201).json({
+      status: "success",
+      exercise,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function updateExercise(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+    console.log(req.body);
+
+    const exercise = await Exercise.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!exercise) {
+      return res.status(404).json({
+        status: "error",
+        message: "Exercise with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      exercise,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteExercise(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const exercise = await Exercise.findByIdAndDelete(req.params.id);
+
+    if (!exercise) {
+      return res.status(404).json({
+        status: "error",
+        message: "Exercise with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      exercise: null,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = {
-   getOneExercise,
-   getAllExercises,
-   createExercise,
-   updateExercise,
-   deleteExercise 
-}
-
-
+  getOneExercise,
+  getAllExercises,
+  updateExercise,
+  deleteExercise,
+  createExercise,
+};

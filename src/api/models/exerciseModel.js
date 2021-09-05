@@ -1,35 +1,28 @@
-const { text } = require('express')
-const mongoose = require('mongoose')
+const { text } = require("express");
+const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 //var autoIncrement = require("mongodb-autoincrement");
 
 const exerciseSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  type: {
+    type: String,
+  },
+  duration: {
+    type: String,
+  },
+  image: {
+    type: String,
+    default: "exerciseDefault.png",
+  },
 
-    name: {
-        type: String,
-        required: true,
-    },
-    type: {
-        type:String,
-        required:true,
-    },
-    duration :{
-        type:Number,
-        required: false,
-    },
-    
-    display:{
-        type:Object,
-        required:true,
-    },
-    decription:{
-        type:String, 
-        require:false,
-    }
+  description: {
+    type: String,
+  },
+});
 
+exerciseSchema.plugin(mongoosePaginate);
 
-
-})
-
-//exerciseSchema.plugin(autoIncrement.mongoosePlugin);
-
-module.exports=mongoose.model('Exercise',exerciseSchema)
+module.exports = mongoose.model("Exercise", exerciseSchema);

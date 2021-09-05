@@ -1,76 +1,147 @@
-const Food = require("../models/foodModel")
+const { validationResult } = require("express-validator");
+const Food = require("../models/foodModel");
 
-async function getOneFood(req,res){
-    try{
-        const food=await Food.findById(req.params.id)
-        if(food==null){
-           res.send('Error ' + err )
-       }else{
-           res.json(food)}
-   }catch(err){
-       res.send('Error ' + err )
-   }
-
-}
-
-async function getAllFoods(req,res){
-    try{
-        const foods=await Food.find()
-        res.json(foods)
-   }catch(err){
-       res.send('Error' + err )
-   }
-}
-
-async function createFood(req,res){
-    const food=new Food({
-        id:req.body.id,        
-       name:req.body.name,
-       type:req.body.type,
-      decription:req.body.description,
-
-   })
-
-   try{
-       const fd=await food.save()
-       res.json(fd)
-   }catch(err){
-       
-      res.send('Error' + err)
-   }
-
-}
-
-async function updateFood(req,res){
-    try{
-        const food=await Food.findById(req.params.id)
-        console.log(req.params)
-        food.sub=req.body.sub
-        
-        const fd=await food.save()
-        res.json(fd)
-    }catch(err){
-        res.send('Error' + err)
+async function getOneFood(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
     }
 
+    const food = await Food.findById(req.params.id);
+    if (!food) {
+      return res.status(404).json({
+        status: "error",
+        message: "food with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      food,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-async function deleteFood(req,res){
-
-    try{
-        const food=await Food.findById(req.params.id)
-        food.sub=req.body.sub
-        const fd=await food.remove()
-        res.json(fd)
-    }catch(err){
-       res.send('Error' + err)
+async function getAllFoods(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
     }
+
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+
+    const result = await Food.paginate(
+      {},
+      {
+        page,
+        limit,
+        sort: "-createdAt",
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function createFood(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+    if (!req.file) {
+      req.file = { filename: `default.png` };
+    }
+
+    const food = await Food.create({
+      ...req.body,
+      image: req.file.filename,
+    });
+    res.status(201).json({
+      status: "success",
+      food,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function updateFood(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const food = await Food.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!food) {
+      return res.status(404).json({
+        status: "error",
+        message: "Food with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      food,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteFood(req, res, next) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: "error",
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const food = await Food.findByIdAndDelete(req.params.id);
+
+    if (!food) {
+      return res.status(404).json({
+        status: "error",
+        message: "Food with this ID does not exist",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      food: null,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = {
-   getOneFood,
-   getAllFoods,
-   createFood,
-   updateFood,
-   deleteFood 
-}
+  getOneFood,
+  getAllFoods,
+  updateFood,
+  deleteFood,
+  createFood,
+};

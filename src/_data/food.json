@@ -1,0 +1,38 @@
+[
+    {
+        "image": "default.png",
+        "_id": "246342df69c988cea89b5100",
+        "name": "Salad",
+        "type": "vegetables",
+        "display": "1 week",
+        "description": "kegel exercise for health"
+        
+    },
+    {
+        "image": "default.png",
+        "_id": "246342df69c988cea89b5101",
+        "name": "Oranges",
+        "type": "Fruit",
+        "display": "a",
+        "description": "orange is citrous fruit for lowering body irritation."
+        
+    },
+    {
+        "image": "default.png",
+        "_id": "246342df69c988cea89b5102",
+        "name": "Salmon",
+        "type": "fish",
+        "display": "1 week",
+        "description": "fish for health"
+        
+    },
+    {
+        "image": "default.png",
+        "_id": "246342df69c988cea89b5103",
+        "name": "Chicken",
+        "type": "qwe",
+        "display": "qwe",
+        "description": "medium fried chicj=ken is good for metabolism."
+        
+    }
+]

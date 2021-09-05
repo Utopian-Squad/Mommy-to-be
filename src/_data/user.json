@@ -1,0 +1,87 @@
+[
+    {
+        "_id":"5d7a514b5d2c12c7449be020",
+        "firstName":"Rediet",
+        "lastName":"Janseged",
+        "email":"redjan@gmail.com",
+        "image":"deafult.png",
+        "address":{
+            "state":"Ethiopia",
+            "city":"Addis Ababa",
+            "woreda":"07"
+        },
+        "dateOfBirth":"1990/12/5",
+        "password":"qwerty1234",
+        "bloodType":"A+",
+        "conceivingDate":"2021/10/5",
+        "gender":"F",
+        "phoneNumber":"0946414257",
+        "roles":"5d7a514b5d2c12c7449be110"
+
+    },
+    {
+        "_id":"5d7a514b5d2c12c7449be021",
+        "firstName":"Bontu",
+        "lastName":"Wame",
+        "email":"bontu@gmail.com",
+        "image":"deafult.png",
+        "address":{
+            "state":"Ethiopia",
+            "city":"Addis Ababa",
+            "woreda":"07"
+        },
+        "dateOfBirth":"1990/12/5",
+        "password":"qwerty1234",
+        "bloodType":"B+",
+        "conceivingDate":"2021/10/5",
+        "gender":"F",
+        "phoneNumber":"0946414258",
+        "roles":"5d7a514b5d2c12c7449be100"
+        
+
+
+    },
+    {
+        "_id":"5d7a514b5d2c12c7449be022",
+        "firstName":"Nurse_Admasu ",
+        "lastName":"Wanna",
+        "email":"Adme@gmail.com",
+        "image":"deafult.png",
+        "address":{
+            "state":"Ethiopia",
+            "city":"Addis Ababa",
+            "woreda":"07"
+        },
+        "dateOfBirth":"1990/12/5",
+        "password":"qwerty1234",
+        "bloodType":"AB+",
+        "conceivingDate":"2021/10/5",
+        "gender":"F",
+        "phoneNumber":"0946414259",
+        "roles":"5d7a514b5d2c12c7449be110",
+        "cv":"cv.pdf"
+
+
+    }, {
+        "_id":"5d7a514b5d2c12c7449be023",
+        "firstName":"Admin_Abyene",
+        "lastName":"Janseged",
+        "email":"abi@gmail.com",
+        "image":"deafult.png",
+        "address":{
+            "state":"Ethiopia",
+            "city":"Addis Ababa",
+            "woreda":"07"
+        },
+        "dateOfBirth":"1990/12/5",
+        "password":"qwerty1234",
+        "bloodType":"AB+",
+        "conceivingDate":"2021/10/5",
+        "gender":"F",
+        "phoneNumber":"0946414260",
+        "roles":"5d7a514b5d2c12c7449be120"
+        
+
+
+    }
+]

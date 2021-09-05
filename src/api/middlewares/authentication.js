@@ -37,3 +37,39 @@ exports.verifyUser = async (req, res, next) => {
       console.log(err);
     }
   };
+  exports.verifyRole = (roleName, permissionName, titleName) => {
+    return async (req, res, next) => {
+      try {
+        if (!req.user) {
+          return res.status(401).json({
+            status: "error",
+            message: "User Unauthorized",
+          });
+        }
+  
+        const roles = req.user.roles;
+        // console.log(roles.includes({ roleName: "admin" }), roles);
+  
+        let isAllowed = false;
+  
+        roles.privileges.forEach((privilege) => {
+          if (privilege.title == titleName) {
+            if (privilege.permissions.includes(permissionName)) {
+              isAllowed = true;
+            }
+          }
+        });
+  
+        if (!isAllowed) {
+          return res.status(401).json({
+            status: "error",
+            message: "Unauthorized user",
+          });
+        }
+  
+        next();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };

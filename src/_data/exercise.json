@@ -1,0 +1,38 @@
+[
+    {
+        "image": "default.png",
+        "_id": "613575df69c988cea89b5100",
+        "name": "Kegel Exercise",
+        "type": "Yoga",
+        "duration": "1 week",
+        "description": "kegel exercise for health"
+        
+    },
+    {
+        "image": "exercise-1630989578641-.jpg",
+        "_id": "613575df69c988cea89b5101",
+        "name": "a",
+        "type": "a",
+        "duration": "a",
+        "description": "a"
+        
+    },
+    {
+        "image": "default.png",
+        "_id": "613575df69c988cea89b5102",
+        "name": "Kegel Exercise",
+        "type": "Yoga",
+        "duration": "1 week",
+        "description": "If youre doing your kegel exercises correctly."
+        
+    },
+    {
+        "image": "exercise-1630989938637-.jpg",
+        "_id": "613575df69c988cea89b5103",
+        "name": "1",
+        "type": "qwe",
+        "duration": "qwe",
+        "description": "kegel exercise"
+        
+    }
+]
